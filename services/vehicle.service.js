@@ -29,7 +29,7 @@ async function getAllVehicles(query){
                }
           }
           const vehicleDetails=await vehicles.findAll({
-               where: { ...whereClause, deleteAt: 0 },
+               where: { ...whereClause, deletedAt: 0 },
           });
           return vehicleDetails;
      }catch(err)
@@ -45,7 +45,7 @@ async function getVehiclebyId(id)
           const vehicleDetails=await vehicles.findOne({
                where:{
                     id:id,
-                    deleteAt:0
+                    deletedAt:0
                }
           });
           return vehicleDetails;
@@ -63,7 +63,8 @@ async function updateVehicleById(vehicle_data,id) {
           await transaction.commit();
           const updatedVehicle = await vehicles.findOne({ where: { id } });
           return updatedVehicle;
-     }catch(err)
+     }
+     catch(err)
      {
           await transaction.rollback();
           throw err;

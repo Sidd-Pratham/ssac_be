@@ -18,7 +18,7 @@ async function createVehicle(req,res){
                where:
                {
                name:vehicle_data.name,
-               deleteAt:0
+               deletedAt:0
                }
           });
           if(similar_vehicle)
@@ -47,7 +47,7 @@ async function getVehiclebyId(req,res){
          }
          return sendSuccessResponse(res,vehicleDetails,"Vehicle found Successfully",200)
      }catch(err){
-          return sendErrorResponse(res,[],"Not able to get vehicle",500)
+          return sendErrorResponse(res,[],"Not able to get vehicle: "+err.message,500)
      }
 }
 async function getAllVehicles(req,res){
@@ -57,7 +57,7 @@ async function getAllVehicles(req,res){
           return sendSuccessResponse(res,vehiclesFetched,"vehicles found Successfully",200)
      }catch(err)
      {
-          return sendErrorResponse(res,[],"Unable to get vehicles",500)
+          return sendErrorResponse(res,[],"Unable to get vehicles: ",err.message,500)
      }
 }
 async function updateVehicleById(req,res) {
@@ -69,7 +69,7 @@ async function updateVehicleById(req,res) {
           }
           const vehicle_non_deleted=await vehicles.findOne({
                where:{
-                    deleteAt:0,
+                    deletedAt:0,
                     id:id
                }
           })
@@ -80,7 +80,7 @@ async function updateVehicleById(req,res) {
           const similar_vehicle=await vehicles.findOne({
                where:{
                     name:vehicle_data.name,
-                    deleteAt:0,
+                    deletedAt:0,
                     id:{[Op.ne]:id}
                }
           })
@@ -96,7 +96,7 @@ async function updateVehicleById(req,res) {
      }
      catch(err)
      {
-          return sendErrorResponse(res,[],"Unable to update vehicles",500)
+          return sendErrorResponse(res,[],"Unable to update vehicles: ",err.message,500)
      }
 }
 async function deleteVehicle(req,res) {
@@ -105,20 +105,20 @@ async function deleteVehicle(req,res) {
           const vehicle_exists=await vehicles.findOne({
                where:{
                     id:id,
-                    deleteAt:0
+                    deletedAt:0
                }
           })
           if(!vehicle_exists)
           {
                return sendErrorResponse(res,[],"Issue deleting vehicle",500);
           }
-          const vehicle_data={deleteAt:1};
+          const vehicle_data={deletedAt:1};
           const updatedVehicle=await vehicleServices.updateVehicleById(vehicle_data,id);
           return sendSuccessResponse(res,updatedVehicle,"Vehicle deleted Successfully",200)
      }
      catch(err)
      {
-          return sendErrorResponse(res,[],"Unable to delete vehicles",500);
+          return sendErrorResponse(res,[],"Unable to delete vehicles: "+err.message,500);
      }
 }
 module.exports={

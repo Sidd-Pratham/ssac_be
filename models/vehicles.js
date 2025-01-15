@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   vehicles.init({
     name: DataTypes.STRING,
     brand_name:DataTypes.STRING,
-    deleteAt:DataTypes.TINYINT
+    deletedAt:DataTypes.TINYINT
   }, {
     sequelize,
     modelName: 'vehicles',
