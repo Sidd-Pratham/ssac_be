@@ -34,7 +34,7 @@ async function createVehicle(req,res){
      }
      catch(err){
           console.log("Error creating vehicle:",err);
-          return sendErrorResponse(res,[],err.message,500)
+          return sendErrorResponse(res,[],"Error creating vehicle: "  +err.message,500)
      }
 }
 async function getVehiclebyId(req,res){

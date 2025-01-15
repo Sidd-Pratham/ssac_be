@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         key:"id"
       }
     },
-    deletedAt:DataTypes.BOOLEAN
+    deletedAt:DataTypes.TINYINT
   }, {
     sequelize,
     tableName:"vehicles_models",

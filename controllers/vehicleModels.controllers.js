@@ -58,7 +58,7 @@ async function getModelById(req,res) {
           const model=await vehicleModelsServices.getModelById(id);
           if(!model)
           {
-               return sendErrorResponse(res,[],"No data found",404);
+               return sendErrorResponse(res,[],"No vehicle model found",404);
           }
           return sendSuccessResponse(res,model,"Model found Successfully",200);
      }catch(err)
@@ -97,7 +97,7 @@ async function updateModelById(req,res) {
      }
      catch(err)
      {
-          return sendErrorResponse(res,[],"Unable to update vehicle model: "+err.message,500)
+          return sendErrorResponse(res,[],"Unable to update vehicle model: " + err.message,500)
      }
 }
 async function deleteInterviewById(req,res) {
