@@ -87,7 +87,6 @@ async function updateModelById(req,res) {
                     id:{[Op.ne]:id}
                }
           })
-          console.log("check_duplicacy",check_duplicacy);
           if(check_duplicacy)
           {
                return sendErrorResponse(res,[],"Similar model for selected vehicle already exists",500);     

@@ -1,4 +1,4 @@
-const { sequelize,vehicle_models } = require("../models")
+const { sequelize,vehicle_models,vehicles } = require("../models")
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 async function createVehicleModel(model_data) {
@@ -16,27 +16,64 @@ async function createVehicleModel(model_data) {
 
 async function getAllModels(query,vehicle_id) {
      try{
-          let whereClause={};
-          if(query)
-          {
-               whereClause={
-                    [Op.or]:[
-                         {name:{[Op.like]:`%${query}%`}},
-                         {year:{[Op.like]:`%${query}%`}}
-                    ]
-               }
-          }
-          if(vehicle_id)
-          {
-               whereClause={
-                    ...whereClause,
-                    vehicle_id:vehicle_id
-               }
-          }
-          const fetched_models=await vehicle_models.findAll({
-               where:{...whereClause,deletedAt:0}
-          })
-          return fetched_models;
+          let whereClause = { deletedAt: 0 };
+    let vehicleWhereClause = {};
+
+    if (query) {
+      whereClause = {
+        ...whereClause,
+        [Op.or]: [
+          { name: { [Op.like]: `%${query}%` } },
+          { year: { [Op.like]: `%${query}%` } },
+        ],
+      };
+
+      vehicleWhereClause = {
+        [Op.or]: [
+          { name: { [Op.like]: `%${query}%` } },
+          { brand_name: { [Op.like]: `%${query}%` } },
+        ],
+      };
+    }
+
+    if (vehicle_id) {
+      whereClause.vehicle_id = vehicle_id;
+    }
+
+    // Query 1: Search directly in vehicle_models
+    const modelsResult = await vehicle_models.findAll({
+      where: whereClause,
+      include: [
+        {
+          model: vehicles,
+          as: "vehicleDetails",
+          required: false,
+        },
+      ],
+    });
+
+    // Query 2: Search in vehicles and fetch related vehicle_models
+    const vehiclesResult = await vehicle_models.findAll({
+      include: [
+        {
+          model: vehicles,
+          as: "vehicleDetails",
+          required: true,
+          where: vehicleWhereClause,
+        },
+      ],
+    });
+
+
+    // Merge and remove duplicates
+    const combinedResults = [...modelsResult, ...vehiclesResult].reduce((acc, item) => {
+      if (!acc.find((x) => x.id === item.id)) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+
+    return combinedResults;
      }
      catch(err)
      {
