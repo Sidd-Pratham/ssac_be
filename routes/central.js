@@ -8,5 +8,8 @@ const VehicleModelRoutes=require("./api/vehicle_models")
 router.use("/vehicle_models",VehicleModelRoutes);
 
 const SupplierRoutes=require("./api/suppliers");
-router.use("/suppliers",SupplierRoutes)
+router.use("/suppliers",SupplierRoutes);
+
+const ProductRoutes=require("./api/products");
+router.use("/products",ProductRoutes);
 module.exports=router;

@@ -7,9 +7,9 @@ const Op = Sequelize.Op;
 async function createVehicleModel(req,res) {
      try{
           const model_data={
-               vehicle_id:req.query.vehicle_id,
-               name:req.query.name,
-               year:req.query.year
+               vehicle_id:req.body.vehicle_id,
+               name:req.body.name,
+               year:req.body.year
           }
 
           const check_vehicle=await vehicles.findOne({
@@ -70,9 +70,9 @@ async function updateModelById(req,res) {
      try{
           const id=req.params.id;
           const model_data={
-               vehicle_id:req.query.vehicle_id,
-               name:req.query.name,
-               year:req.query.year
+               vehicle_id:req.body.vehicle_id,
+               name:req.body.name,
+               year:req.body.year
           }
           const check_model_existance=await vehicleModelsServices.getModelById(id);
           if(!check_model_existance)

@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey:"vehicle_id",
       targetKey:"id",
       as:"vehicleDetails"
-    })
+    });
+    vehicles_models.belongsToMany(models.products, {
+      through: 'product_model_associations',
+      foreignKey: 'vehicle_model_id', // Column in PRODUCT_VEHICLE_ASSOCIATION referencing Vehicle's id
+      otherKey: 'product_id',  // Column in PRODUCT_VEHICLE_ASSOCIATION referencing Product's id
+  });
     }
   }
   vehicles_models.init({

@@ -7,15 +7,15 @@ const Op = Sequelize.Op;
 async function createSupplier(req,res) {
      try{
           const supplier_data={
-               name: req.query.name,
-               contact_number: req.query.contact_number,
-               address: req.query.address,
-               sales_person_name: req.query. sales_person_name,
-               sales_person_contact_number: req.query.sales_person_contact_number,
-               bank_account_number: req.query.bank_account_number,
-               bank_branch_name: req.query.bank_branch_name,
-               bank_branch_ifsc: req.query.bank_branch_ifsc,
-               supplier_gst_number: req.query.supplier_gst_number    
+               name: req.body.name,
+               contact_number: req.body.contact_number,
+               address: req.body.address,
+               sales_person_name: req.body.sales_person_name,
+               sales_person_contact_number: req.body.sales_person_contact_number,
+               bank_account_number: req.body.bank_account_number,
+               bank_branch_name: req.body.bank_branch_name,
+               bank_branch_ifsc: req.body.bank_branch_ifsc,
+               supplier_gst_number: req.body.supplier_gst_number    
           }
           const check_duplicacy=await suppliers.findOne({
                where:{
@@ -61,15 +61,15 @@ async function updateSupplierById(req,res) {
      try{ 
           const id=req.params.id;
           const supplier_data={
-               name: req.query.name,
-               contact_number: req.query.contact_number,
-               address: req.query.address,
-               sales_person_name: req.query. sales_person_name,
-               sales_person_contact_number: req.query.sales_person_contact_number,
-               bank_account_number: req.query.bank_account_number,
-               bank_branch_name: req.query.bank_branch_name,
-               bank_branch_ifsc: req.query.bank_branch_ifsc,
-               supplier_gst_number: req.query.supplier_gst_number    
+               name: req.body.name,
+               contact_number: req.body.contact_number,
+               address: req.body.address,
+               sales_person_name: req.body. sales_person_name,
+               sales_person_contact_number: req.body.sales_person_contact_number,
+               bank_account_number: req.body.bank_account_number,
+               bank_branch_name: req.body.bank_branch_name,
+               bank_branch_ifsc: req.body.bank_branch_ifsc,
+               supplier_gst_number: req.body.supplier_gst_number    
           }
           const check_existance=await supplierServices.getSupplierById(id);
           if(!check_existance)

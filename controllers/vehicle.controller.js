@@ -9,10 +9,9 @@ const {
 }=require("../models");
 async function createVehicle(req,res){
      try{
-          console.log(req.query);
           const vehicle_data={  
-               name:req.query.name,
-               brand_name:req.query.brand_name
+               name:req.body.name,
+               brand_name:req.body.brand_name
           }
           const similar_vehicle=await vehicles.findOne({
                where:
@@ -64,8 +63,8 @@ async function updateVehicleById(req,res) {
      try{
           const id=req.params.id;
           const vehicle_data={
-               name:req.query.name,
-               brand_name:req.query.brand_name
+               name:req.body.name,
+               brand_name:req.body.brand_name
           }
           const vehicle_non_deleted=await vehicles.findOne({
                where:{

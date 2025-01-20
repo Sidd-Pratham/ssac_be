@@ -37,7 +37,14 @@ async function getAllModels(query,vehicle_id) {
     }
 
     if (vehicle_id) {
-      whereClause.vehicle_id = vehicle_id;
+      whereClause={
+        ...whereClause,
+        vehicle_id:Number(vehicle_id)
+      }
+      const ModelOnlySearch=await vehicle_models.findAll({
+        where:whereClause
+      })
+      return ModelOnlySearch;
     }
 
     // Query 1: Search directly in vehicle_models
@@ -51,7 +58,6 @@ async function getAllModels(query,vehicle_id) {
         },
       ],
     });
-
     // Query 2: Search in vehicles and fetch related vehicle_models
     const vehiclesResult = await vehicle_models.findAll({
       include: [
@@ -63,8 +69,6 @@ async function getAllModels(query,vehicle_id) {
         },
       ],
     });
-
-
     // Merge and remove duplicates
     const combinedResults = [...modelsResult, ...vehiclesResult].reduce((acc, item) => {
       if (!acc.find((x) => x.id === item.id)) {

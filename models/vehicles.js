@@ -5,7 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class vehicles extends Model {
     static associate(models) {
-      // define association here
+      vehicles.belongsToMany(models.products, {
+        through: 'product_vehicle_associations',
+        foreignKey: 'vehicle_id', // Column in PRODUCT_VEHICLE_ASSOCIATION referencing Vehicle's id
+        otherKey: 'product_id',  // Column in PRODUCT_VEHICLE_ASSOCIATION referencing Product's id
+    });
     }
   }
   vehicles.init({
