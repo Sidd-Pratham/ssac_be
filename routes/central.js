@@ -12,4 +12,10 @@ router.use("/suppliers",SupplierRoutes);
 
 const ProductRoutes=require("./api/products");
 router.use("/products",ProductRoutes);
+
+const BillRoutes=require("./api/bills");
+router.use("/bills",BillRoutes);
+
+const SaleOrdersRoutes=require("./api/sale_orders");
+router.use("/sale_orders",SaleOrdersRoutes);
 module.exports=router;

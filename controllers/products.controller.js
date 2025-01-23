@@ -51,7 +51,6 @@ async function getAllProducts(req,res) {
      return sendErrorResponse(res,[],"Unable to get products:" + err.message,500)
     }
 }
-
 async function getProductByCode(req,res){
      try{
           const code=req.params.code;
@@ -66,7 +65,6 @@ async function getProductByCode(req,res){
           return sendErrorResponse(res,[],"Undable to get product: " + err.message,500)
      }
 }
-
 async function getProductById(req,res) {
      try{
           const id=req.params.id;
@@ -81,7 +79,6 @@ async function getProductById(req,res) {
           return sendErrorResponse(res,[],"Unable to get product: " + err.message,500)
      }
 }
-
 async function updateProductById(req,res) {
      try{
           const id=req.params.id;
@@ -126,7 +123,6 @@ async function updateProductById(req,res) {
           return sendSuccessResponse(res,[],"Unable to update Product: "+err.message,500)
      }
 }
-
 async function deleteProductById(req,res) {
      try{
           const id=req.params.id;

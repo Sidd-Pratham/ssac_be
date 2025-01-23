@@ -1,6 +1,5 @@
 const { sequelize,products,vehicles,vehicle_models } = require("../models");
 const Sequelize = require("sequelize");
-const { sendSuccessResponse } = require("../utils/response");
 const Op = Sequelize.Op;
 async function createProduct(product_details,associatedVehicles,associatedModels) {
      const transaction=await sequelize.transaction();
