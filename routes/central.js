@@ -18,4 +18,8 @@ router.use("/bills",BillRoutes);
 
 const SaleOrdersRoutes=require("./api/sale_orders");
 router.use("/sale_orders",SaleOrdersRoutes);
+
+const ShipmentRoutes=require("./api/shipments");
+router.use("/shipments",ShipmentRoutes);
+
 module.exports=router;

@@ -5,7 +5,6 @@ async function createProduct(product_details,associatedVehicles,associatedModels
      const transaction=await sequelize.transaction();
      try{
           const new_product=await products.create(product_details,{transaction});
-          console.log(new_product instanceof products); // Should print `true`
           if (associatedVehicles && associatedVehicles.length > 0) {
                await new_product.addVehicles(associatedVehicles, { transaction });
              }

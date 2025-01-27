@@ -5,7 +5,7 @@ const Op = Sequelize.Op;
 async function createSupplier(supplier_data) {
      const transaction=await sequelize.transaction()
      try{
-       const new_supplier=await suppliers.create(supplier_data);
+       const new_supplier=await suppliers.create(supplier_data,{transaction});
        await transaction.commit();
        return new_supplier;
      }catch(err)

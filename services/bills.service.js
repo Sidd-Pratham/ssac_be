@@ -80,9 +80,11 @@ async function getAllBills(query,status,date,product_id) {
                        {
                             model: products,
                             as: 'productDetails',
+                            required:true,
                             where:productWhereClause
                        }
-                    ]
+                    ],
+                    required:true
                   }],
           });
           return fetched_bills;
@@ -111,7 +113,6 @@ async function getBillById(id)
                             }
                          ]
                        }],
-               
           });
           return bill;
      }catch(err)
@@ -124,8 +125,8 @@ async function updateBillById(bill_details,id)
      const transaction=await sequelize.transaction();
      try{
           await bills.update(bill_details,{where:{id:id},transaction});
-          const updated_bill=await getBillById(id);
           await transaction.commit();
+          const updated_bill=await getBillById(id);
           return updated_bill;
           
      }catch(err)
@@ -148,4 +149,5 @@ async function deleteBillById(id) {
           throw err;
      }
 }
+
 module.exports={createBill,getAllBills,getBillById,updateBillById,deleteBillById}
