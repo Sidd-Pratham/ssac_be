@@ -80,7 +80,7 @@ async function updateSaleOrderById(req,res) {
                return sendErrorResponse(res,[],"Product not found",404);
           }
           const updated_sale_order=await saleOrderService.updateSaleOrderById(sale_order_data,id);
-          return sendSuccessResponse(res,updated_sale_order,"Sale Order updated successfully",200);
+          return sendSuccessResponse(res,updated_sale_order,"Sale order updated successfully",200);
      }catch(err)
      {
           return sendErrorResponse(res,[],"Unable to update sale order",500)

@@ -16,7 +16,7 @@ async function createVehicleModel(model_data) {
 
 async function getAllModels(query,vehicle_id) {
      try{
-          let whereClause = { deletedAt: 0 };
+    let whereClause = { deletedAt: 0 };
     let vehicleWhereClause = {};
 
     if (query) {
@@ -42,7 +42,11 @@ async function getAllModels(query,vehicle_id) {
         vehicle_id:Number(vehicle_id)
       }
       const ModelOnlySearch=await vehicle_models.findAll({
-        where:whereClause
+        where:whereClause,
+        include:{
+          model: vehicles,
+          as: "vehicleDetails",
+        }
       })
       return ModelOnlySearch;
     }
@@ -60,6 +64,7 @@ async function getAllModels(query,vehicle_id) {
     });
     // Query 2: Search in vehicles and fetch related vehicle_models
     const vehiclesResult = await vehicle_models.findAll({
+      where:{deletedAt:0},
       include: [
         {
           model: vehicles,

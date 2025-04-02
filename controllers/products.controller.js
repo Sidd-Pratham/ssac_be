@@ -19,8 +19,9 @@ async function createProduct(req,res) {
                description:req.body.description,
                profit:req.body.profit
           }
-          const associatedVehicles=JSON.parse(req.body.associated_vehicles);
+          const associatedVehicles=JSON.parse(req.body.associated_vehicles)
           const associatedModels=JSON.parse(req.body.associated_models);
+          console.log(associatedVehicles,associatedModels)
           const similar_product_code=await products.findOne({
                where:{
                     product_code:product_data.product_code,

@@ -114,7 +114,6 @@ async function deleteInterviewById(req,res) {
           const model_data={deletedAt:1};
           const deleted_model=await vehicleModelsServices.updateModelById(model_data,id);
           return sendSuccessResponse(res,deleted_model,"Vehicle model deleted successfully",200);
-
      }catch(err)
      {
           return sendErrorResponse(res,"Issue deleting vehicle model: ",err.message,500)
