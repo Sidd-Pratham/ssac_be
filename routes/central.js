@@ -22,4 +22,7 @@ router.use("/sale_orders",SaleOrdersRoutes);
 const ShipmentRoutes=require("./api/shipments");
 router.use("/shipments",ShipmentRoutes);
 
+const PurchaseOrderRoutes=require("./api/purchase_orders");
+router.use("/purchase_orders",PurchaseOrderRoutes)
+
 module.exports=router;
