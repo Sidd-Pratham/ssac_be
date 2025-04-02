@@ -3,6 +3,7 @@ const { sequelize,bills,sale_orders,products } = require("../models")
 const saleOrdersService=require("./sale_orders.service");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+
 async function createBill(bill_details,sale_orders_details) {
      const transaction=await sequelize.transaction();
      try{
@@ -44,6 +45,11 @@ async function getAllBills(query,status,date,product_id) {
                whereClause={
                     [Op.or]:[{consumer_contact:{[Op.like]:`%${query}%`}},]
                }
+               // productWhereClause={
+               //      [Op.or]:[{product_code:{[Op.like]:`%${query}%`}},
+               //               {name:{[Op.like]:`%${query}%`}}
+               // ]
+               // }
           }
           if(status)
           {
@@ -67,6 +73,7 @@ async function getAllBills(query,status,date,product_id) {
           if(product_id)
           {
                productWhereClause={
+                    ...productWhereClause,
                     id:product_id
                }
           }
@@ -86,6 +93,7 @@ async function getAllBills(query,status,date,product_id) {
                     ],
                     required:true
                   }],
+               order: [['billing_date', 'DESC']]
           });
           return fetched_bills;
      }

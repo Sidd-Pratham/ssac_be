@@ -3,7 +3,14 @@ const app=express();
 app.use(express.json());
 const dotenv=require("dotenv");
 dotenv.config();
-
+const cors = require("cors");
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    exposedHeaders: ["Content-Disposition"],
+  })
+);
 app.get("/",(req,res)=>{
      res.send({
           "message":"Welcome to backend system of SSAC management system"

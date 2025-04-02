@@ -5,6 +5,7 @@ const Sequelize=require("sequelize");
 const Op = Sequelize.Op;
 const {
      sequelize,
+     vehicle_models,
      vehicles
 }=require("../models");
 async function createVehicle(req,res){
@@ -110,6 +111,11 @@ async function deleteVehicle(req,res) {
           if(!vehicle_exists)
           {
                return sendErrorResponse(res,[],"Issue deleting vehicle",500);
+          }
+          const check_model_existance=await vehicle_models.findOne({where:{vehicle_id:id,deletedAt:0}})
+          if(check_model_existance)
+          {
+               return sendErrorResponse(res,[],"Model already Existing for this Vehicle",500);
           }
           const vehicle_data={deletedAt:1};
           const updatedVehicle=await vehicleServices.updateVehicleById(vehicle_data,id);
